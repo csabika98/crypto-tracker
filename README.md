@@ -5,9 +5,9 @@ To **track and analyze cryptocurrency prices in real-time**, helping you underst
 Think of it as your personal crypto market observatory.
 
 ## Core Functionality
-Automatic Data Collection
-Smart Analytics
-Dashboard
+* Automatic Data Collection
+* Smart Analytics
+* Dashboard
 
 ## Why This Project?
 
@@ -33,12 +33,12 @@ Dashboard
 │  Service        │      │  TimescaleDB    │      │  Service        │
 └─────────────────┘      └─────────────────┘      └─────────────────┘
                                                             │
-                                                                                                    ▼
+                                                        ▼
                                                    ┌─────────────────┐
                                                    │  API Service    │
                                                    └─────────────────┘
                                                             │
-                                                                                                   ▼
+                                                        ▼
                                                    ┌─────────────────┐
                                                    │  Frontend       │
                                                    │  Dashboard      │
