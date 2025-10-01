@@ -1,3 +1,4 @@
+# TOC
 - [Cryptocurrency Analytics Platform](#cryptocurrency-analytics-platform)
   * [Use-Case](#use-case)
   * [Core Functionality](#core-functionality)
