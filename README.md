@@ -31,7 +31,7 @@ Think of it as your personal crypto market observatory.
 - **Engaging visualizations** - Price charts, comparisons, and insights
 
 
-**Key Differences why i went with PostgreSQL + TimescaleDB instead of MongoDB:**
+**Reason why i went with PostgreSQL + TimescaleDB instead of MongoDB:**
 - SQL-based schema with proper relationships
 - TimescaleDB hypertables for automatic time-series optimization
 - Example SQL queries showing analytics capabilities
