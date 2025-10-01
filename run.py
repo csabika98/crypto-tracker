@@ -5,6 +5,11 @@ Service Orchestrator
 import threading
 import time
 import sys
+from pathlib import Path
+import subprocess
+
+PROJECT_ROOT = Path(__file__).parent
+FRONTEND_DIR = PROJECT_ROOT / "frontend"
 
 def run_init_db():
     """Initialize database"""
@@ -25,6 +30,11 @@ def run_api():
     import uvicorn
     from backend.api.main import app
     uvicorn.run(app, host="0.0.0.0", port=8000)
+    
+def run_frontend():
+    """Run Next.js frontend"""
+    print("Starting frontend...")
+    subprocess.run(["npm", "run", "dev"], cwd=FRONTEND_DIR)
 
 def main():
     print("="*50)
@@ -39,7 +49,7 @@ def main():
     print("Collector running in background")
     print()
     
-  
+ 
     time.sleep(2)
     
     print("="*50)

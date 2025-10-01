@@ -10,7 +10,31 @@ services:
       - "5432:5432"
     volumes:
       - timescale_data:/var/lib/postgresql/data
-    restart: unless-stopped
 
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: crypto_backend
+    environment:
+      DATABASE_URL: postgresql://csabasallai:passwordtest@timescaledb:5432/crypto_db
+      COINGECKO_API_URL: https://api.coingecko.com/api/v3
+      COLLECTION_INTERVAL: 3600
+    ports:
+      - "8000:8000"
+    depends_on:
+      - timescaledb
+   
+
+  frontend:
+    build: ./frontend
+    container_name: crypto_frontend
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+   
 volumes:
   timescale_data:
