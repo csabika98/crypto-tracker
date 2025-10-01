@@ -1,5 +1,4 @@
 'use client';
-
 import React from 'react';
 import {
   Chart as ChartJS,
@@ -11,6 +10,7 @@ import {
   Tooltip,
   Legend,
   Filler,
+  TooltipItem,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { format } from 'date-fns';
@@ -78,7 +78,7 @@ const PriceChart: React.FC<PriceChartProps> = ({ data, coinSymbol, periodHours }
         mode: 'index' as const,
         intersect: false,
         callbacks: {
-          label: function(context: any) {
+          label: function(context: TooltipItem<'line'>) {
             let label = context.dataset.label || '';
             if (label) {
               label += ': ';
@@ -105,8 +105,8 @@ const PriceChart: React.FC<PriceChartProps> = ({ data, coinSymbol, periodHours }
           color: 'rgba(0, 0, 0, 0.05)',
         },
         ticks: {
-          callback: function(value: any) {
-            return '$' + value.toFixed(2);
+          callback: function(value: number | string) {
+            return '$' + Number(value).toFixed(2);
           }
         }
       },
