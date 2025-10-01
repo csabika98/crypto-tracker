@@ -9,6 +9,7 @@
   * [Example Queries](#example-queries)
   * [Installation-Docker](#installation-docker)
   * [Local Installation](#local-installation)
+  * [How it works?](#how-it-works)
   * [API endpoints](#available-api-endpoints)
 
 # Cryptocurrency Analytics Platform
@@ -113,6 +114,58 @@ crypto_db=#
 docker compose up --build
 ```
 
+## Local Installation
+
+If you want to run it outside docker.
+
+Make sure you have installed PostgreSQL with TimescaleDB, or just pull it from docker (docker pull timescale/timescaledb:latest-pg16)
+
+Create your .env and place it inside the /backend directory or set these environment variables.
+
+Example (make sure to create the db, and user/password correct)
+```
+# DB Configuration
+DATABASE_URL=postgresql://csabasallai:passwordtest@localhost:5432/crypto_db
+
+# CoinGecko Configuration
+COINGECKO_API_URL=https://api.coingecko.com/api/v3
+COLLECTION_INTERVAL=3600
+
+# Application LOG Settings
+LOG_LEVEL=INFO
+```
+
+1. Clone the repository
+2. CD to the backend directory
+3. Create a python virtual env. in this directory 
+```
+python -m venv venv
+```
+4. Based on your op.system activate venv
+```
+source venv/bin/activate or .\venv\bin\Activate.ps1
+```
+5. Install the dependencies
+```
+pip install -r requirements.txt
+```
+6. CD to the root dir
+7. Build frontend, CD to the frontend directory
+```
+npm ci
+npm run build
+```
+8. Start backend from the root dir.
+```
+python run.py
+```
+9. Start frontend from the frontend dir.
+```
+npm run start
+```
+
+## How it works?
+
 The app is set to capture data in every 50 seconds, you can change this by modifying COLLECTION_INTERVAL in the docker-compose file
 
 ```
@@ -192,55 +245,6 @@ Also you can click to the coins.. to see the market change
 <img width="683" height="463" alt="image" src="https://github.com/user-attachments/assets/67e407bc-6bef-472c-823b-db72eb54cfff" />
 <img width="1847" height="919" alt="image" src="https://github.com/user-attachments/assets/34b2f68c-6208-4f7d-85b6-3772ed00fcba" />
 
-## Local Installation
-
-If you want to run it outside docker.
-
-Make sure you have installed PostgreSQL with TimescaleDB, or just pull it from docker (docker pull timescale/timescaledb:latest-pg16)
-
-Create your .env and place it inside the /backend directory or set these environment variables.
-
-Example (make sure to create the db, and user/password correct)
-```
-# DB Configuration
-DATABASE_URL=postgresql://csabasallai:passwordtest@localhost:5432/crypto_db
-
-# CoinGecko Configuration
-COINGECKO_API_URL=https://api.coingecko.com/api/v3
-COLLECTION_INTERVAL=3600
-
-# Application LOG Settings
-LOG_LEVEL=INFO
-```
-
-1. Clone the repository
-2. CD to the backend directory
-3. Create a python virtual env. in this directory 
-```
-python -m venv venv
-```
-4. Based on your op.system activate venv
-```
-source venv/bin/activate or .\venv\bin\Activate.ps1
-```
-5. Install the dependencies
-```
-pip install -r requirements.txt
-```
-6. CD to the root dir
-7. Build frontend, CD to the frontend directory
-```
-npm ci
-npm run build
-```
-8. Start backend from the root dir.
-```
-python run.py
-```
-9. Start frontend from the frontend dir.
-```
-npm run start
-```
 
 If you wish to see the data from the API:
 
