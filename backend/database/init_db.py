@@ -1,17 +1,11 @@
 from sqlalchemy import create_engine, text
-from models import Base
-from dotenv import load_dotenv
+import sys
 import os
-
-load_dotenv()
-
-DATABASE_URL = os.getenv("DATABASE_URL")
-
-if not DATABASE_URL:
-    raise ValueError("DATABASE_URL not found in environment variables!")
+from backend.database.models import Base
+from backend.config import Config
 
 def init_database():
-    engine = create_engine(DATABASE_URL)
+    engine = create_engine(Config.DATABASE_URL)
     
     Base.metadata.create_all(engine)
     
