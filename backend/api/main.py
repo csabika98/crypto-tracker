@@ -142,7 +142,9 @@ def get_trending(limit: int = Query(10, ge=1, le=50), db: Session = Depends(get_
             ((current_price - price_24h_ago) / price_24h_ago * 100) as change_pct,
             last_update
         FROM price_changes
-        WHERE price_24h_ago IS NOT NULL AND current_price IS NOT NULL
+        WHERE price_24h_ago IS NOT NULL 
+          AND current_price IS NOT NULL
+          AND price_24h_ago != current_price  -- Filter out 0% changes
         ORDER BY ABS((current_price - price_24h_ago) / price_24h_ago) DESC
         LIMIT :limit
     """)
@@ -165,6 +167,7 @@ def get_trending(limit: int = Query(10, ge=1, le=50), db: Session = Depends(get_
             } for row in rows
         ]
     }
+   
 
 @app.get("/api/analytics/summary")
 def get_market_summary(db: Session = Depends(get_db)):

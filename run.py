@@ -1,12 +1,6 @@
 #!/usr/bin/env python3
-"""
-Service Orchestrator
-"""
 import threading
-import time
 import sys
-from pathlib import Path
-import subprocess
 
 def run_init_db():
     """Initialize database"""
@@ -16,18 +10,13 @@ def run_init_db():
     print()
 
 def run_collector():
-    """Run data collector"""
-    print("Starting data collector...")
     from backend.collector.main import main as collector_main
     collector_main()
 
 def run_api():
-    """Run API server"""
-    print("Starting API server...")
     import uvicorn
     from backend.api.main import app
     uvicorn.run(app, host="0.0.0.0", port=8000)
-
 
 def main():
     print("="*50)
@@ -36,14 +25,12 @@ def main():
     print()
     
     run_init_db()
-    
+
+    # Start collector
     collector_thread = threading.Thread(target=run_collector, daemon=True)
     collector_thread.start()
     print("Collector running in background")
     print()
-    
- 
-    time.sleep(2)
     
     print("="*50)
     print("ALL SERVICES RUNNING")
