@@ -38,7 +38,7 @@ Think of it as your personal crypto market observatory.
                                                    │  API Service    │
                                                    └─────────────────┘
                                                             │
-                                                           ▼
+                                                             ▼
                                                    ┌─────────────────┐
                                                    │  Frontend       │
                                                    │  Dashboard      │
