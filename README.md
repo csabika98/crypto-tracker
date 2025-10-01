@@ -6,6 +6,8 @@
   * [Services](#services)
   * [Tech Stack](#tech-stack)
   * [Example Queries](#example-queries)
+  * [How to run?](#how-to-run)
+  * [API endpoints](#available-api-endpoints)
 
 # Cryptocurrency Analytics Platform
 
@@ -99,3 +101,158 @@ crypto_db=# SELECT coin_id, name, symbol FROM coins ORDER BY name LIMIT 10;
 
 crypto_db=# 
 ```
+## How to run?
+
+1. Clone the repository 
+
+2. Simply run the following:
+
+```
+docker compose up --build
+```
+
+## Available API endpoints
+
+### API Reference
+
+Base URL: `http://localhost:8000`
+
+### Base Endpoints
+
+### GET /
+Returns API information and version.
+
+**Response:**
+```json
+{
+  "message": "Crypto Analytics API",
+  "version": "1.0.0",
+  "docs": "/docs"
+}
+```
+
+### GET /health
+Health check endpoint with database connectivity test.
+
+**Response:**
+```json
+{
+  "status": "healthy",
+  "database": "connected"
+}
+```
+
+---
+
+###  Coins Endpoints
+
+### GET /api/coins
+Returns all tracked cryptocurrencies.
+
+**Response:**
+```json
+{
+  "count": 50,
+  "coins": [
+    {
+      "coin_id": "bitcoin",
+      "name": "Bitcoin",
+      "symbol": "BTC",
+      "image_url": "https://..."
+    }
+  ]
+}
+```
+
+### GET /api/coins/{coin_id}/price
+Returns current price data for a specific coin.
+
+**Parameters:**
+- `coin_id` (path) - Coin identifier (e.g., "bitcoin", "ethereum")
+
+**Response:**
+```json
+{
+  "coin_id": "bitcoin",
+  "symbol": "BTC",
+  "price_usd": 117747.00,
+  "market_cap": 2346478676373,
+  "volume_24h": 67635483758,
+  "timestamp": "2025-10-01T21:54:01Z"
+}
+```
+
+### GET /api/coins/{coin_id}/history
+Returns historical price data for a specific coin.
+
+**Parameters:**
+- `coin_id` (path) - Coin identifier
+- `hours` (query) - Number of hours of history (1-720, default: 24)
+
+**Response:**
+```json
+{
+  "coin_id": "bitcoin",
+  "symbol": "BTC",
+  "period_hours": 24,
+  "data_points": 24,
+  "prices": [
+    {
+      "time": "2025-10-01T20:54:01Z",
+      "price": 117500.00,
+      "market_cap": 2345000000000,
+      "volume": 67000000000
+    }
+  ]
+}
+```
+
+---
+
+###  Analytics Endpoints
+
+### GET /api/analytics/trending
+Returns top price movers in the last 24 hours.
+
+**Parameters:**
+- `limit` (query) - Number of results (1-50, default: 10)
+
+**Response:**
+```json
+{
+  "period": "24h",
+  "count": 10,
+  "trending": [
+    {
+      "coin_id": "bitcoin",
+      "symbol": "BTC",
+      "current_price": 117747.00,
+      "price_24h_ago": 115000.00,
+      "change_percent": 2.39,
+      "last_update": "2025-10-01T21:54:01Z",
+      "direction": "up"
+    }
+  ]
+}
+```
+
+### GET /api/analytics/summary
+Returns overall market statistics.
+
+**Response:**
+```json
+{
+  "total_coins_tracked": 50,
+  "total_market_cap": 2500000000000,
+  "total_volume_24h": 100000000000
+}
+```
+
+---
+
+###  Interactive Documentation
+
+### GET /docs
+Access the auto-generated Swagger UI documentation with interactive API testing.
+
+---
