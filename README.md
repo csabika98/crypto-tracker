@@ -112,6 +112,87 @@ crypto_db=#
 docker compose up --build
 ```
 
+The app is set to capture data in every 50 seconds, you can change this by modifying COLLECTION_INTERVAL in the docker-compose file
+
+```
+
+crypto_backend      | DB initialized successfully!
+crypto_backend      | 
+crypto_backend      | Collector running in background
+crypto_backend      | 
+crypto_backend      | ==================================================
+crypto_backend      | ALL SERVICES RUNNING
+crypto_backend      | ==================================================
+crypto_backend      | 
+crypto_backend      | API: http://localhost:8000
+crypto_backend      | Docs: http://localhost:8000/docs
+crypto_backend      | 
+crypto_backend      | Press Ctrl+C to stop
+crypto_backend      | 
+crypto_frontend     |    ▲ Next.js 15.5.4
+crypto_frontend     |    - Local:        http://localhost:3000
+crypto_frontend     |    - Network:      http://172.18.0.4:3000
+crypto_frontend     | 
+crypto_frontend     |  ✓ Starting...
+crypto_backend      | START: Starting Crypto Data Collector
+crypto_backend      | CONFIG: Collection interval: 50 seconds
+crypto_backend      | START: Starting data collection at 2025-10-01 22:46:56
+crypto_backend      | INFO:     Started server process [1]
+crypto_backend      | INFO:     Waiting for application startup.
+crypto_backend      | INFO:     Application startup complete.
+crypto_backend      | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+crypto_frontend     |  ✓ Ready in 769ms
+crypto_backend      | Added 50 new coins, 50 price records
+crypto_backend      | Scheduled to run every 50 seconds
+crypto_backend      | Press Ctrl+C to stop
+crypto_backend      | 
+crypto_backend      | INFO:     172.18.0.1:49596 - "GET /api/coins HTTP/1.1" 200 OK
+crypto_backend      | INFO:     172.18.0.1:49596 - "GET /api/coins HTTP/1.1" 200 OK
+crypto_backend      | INFO:     172.18.0.1:49622 - "GET /api/coins/bitcoin/price HTTP/1.1" 200 OK
+crypto_backend      | INFO:     172.18.0.1:49626 - "GET /api/coins/bitcoin/history?hours=24 HTTP/1.1" 200 OK
+crypto_backend      | INFO:     172.18.0.1:49612 - "GET /api/analytics/trending?limit=10 HTTP/1.1" 200 OK
+crypto_backend      | INFO:     172.18.0.1:49626 - "GET /api/analytics/trending?limit=10 HTTP/1.1" 200 OK
+crypto_backend      | INFO:     172.18.0.1:49704 - "GET /api/coins HTTP/1.1" 200 OK
+crypto_backend      | INFO:     172.18.0.1:49734 - "GET /api/coins/bitcoin/history?hours=24 HTTP/1.1" 200 OK
+crypto_backend      | INFO:     172.18.0.1:49704 - "GET /api/coins HTTP/1.1" 200 OK
+crypto_backend      | INFO:     172.18.0.1:49720 - "GET /api/analytics/trending?limit=10 HTTP/1.1" 200 OK
+crypto_backend      | INFO:     172.18.0.1:49726 - "GET /api/coins/bitcoin/price HTTP/1.1" 200 OK
+crypto_backend      | INFO:     172.18.0.1:49726 - "GET /api/analytics/trending?limit=10 HTTP/1.1" 200 OK
+crypto_backend      | INFO:     172.18.0.1:35574 - "GET /api/coins/ethereum/price HTTP/1.1" 200 OK
+crypto_backend      | INFO:     172.18.0.1:35568 - "GET /api/coins/ethereum/history?hours=24 HTTP/1.1" 200 OK
+crypto_backend      | INFO:     172.18.0.1:35568 - "GET /api/coins/bitcoin/price HTTP/1.1" 200 OK
+crypto_backend      | INFO:     172.18.0.1:35574 - "GET /api/coins/bitcoin/history?hours=24 HTTP/1.1" 200 OK
+crypto_backend      | INFO:     172.18.0.1:35568 - "GET /api/coins/bitcoin/history?hours=168 HTTP/1.1" 200 OK
+crypto_backend      | INFO:     172.18.0.1:35574 - "GET /api/coins/bitcoin/price HTTP/1.1" 200 OK
+crypto_backend      | INFO:     172.18.0.1:35574 - "GET /api/coins/bitcoin/price HTTP/1.1" 200 OK
+crypto_backend      | INFO:     172.18.0.1:35568 - "GET /api/coins/bitcoin/history?hours=720 HTTP/1.1" 200 OK
+crypto_backend      | INFO:     172.18.0.1:35568 - "GET /api/coins/bitcoin/history?hours=24 HTTP/1.1" 200 OK
+crypto_backend      | INFO:     172.18.0.1:35574 - "GET /api/coins/bitcoin/price HTTP/1.1" 200 OK
+crypto_backend      | INFO:     172.18.0.1:35574 - "GET /api/coins HTTP/1.1" 200 OK
+crypto_backend      | INFO:     172.18.0.1:35568 - "GET /api/analytics/trending?limit=10 HTTP/1.1" 200 OK
+crypto_backend      | INFO:     172.18.0.1:35574 - "GET /api/coins HTTP/1.1" 200 OK
+crypto_backend      | INFO:     172.18.0.1:34988 - "GET /api/coins/bitcoin/price HTTP/1.1" 200 OK
+crypto_backend      | INFO:     172.18.0.1:35002 - "GET /api/coins/bitcoin/history?hours=24 HTTP/1.1" 200 OK
+crypto_backend      | INFO:     172.18.0.1:35574 - "GET /api/analytics/trending?limit=10 HTTP/1.1" 200 OK
+crypto_backend      | START: Starting data collection at 2025-10-01 22:47:47
+crypto_backend      | Added 0 new coins, 50 price records
+crypto_backend      | INFO:     172.18.0.1:35508 - "GET /api/coins HTTP/1.1" 200 OK
+crypto_backend      | INFO:     172.18.0.1:35508 - "GET /api/coins HTTP/1.1" 200 OK
+crypto_backend      | INFO:     172.18.0.1:35546 - "GET /api/coins/bitcoin/history?hours=24 HTTP/1.1" 200 OK
+crypto_backend      | INFO:     172.18.0.1:35516 - "GET /api/analytics/trending?limit=10 HTTP/1.1" 200 OK
+crypto_backend      | INFO:     172.18.0.1:35530 - "GET /api/coins/bitcoin/price HTTP/1.1" 200 OK
+crypto_backend      | INFO:     172.18.0.1:35516 - "GET /api/analytics/trending?limit=10 HTTP/1.1" 200 OK
+```
+
+<img width="1848" height="926" alt="image" src="https://github.com/user-attachments/assets/9ed50507-e1ec-4fef-a556-790a814c9250" />
+
+If there is a new pull, simply refresh the page to see.
+Also you can click to the coins.. to see the market change
+<img width="683" height="463" alt="image" src="https://github.com/user-attachments/assets/67e407bc-6bef-472c-823b-db72eb54cfff" />
+<img width="1847" height="919" alt="image" src="https://github.com/user-attachments/assets/34b2f68c-6208-4f7d-85b6-3772ed00fcba" />
+
+If you wish to see the data from the API:
+
 ## Available API endpoints
 
 ### API Reference
