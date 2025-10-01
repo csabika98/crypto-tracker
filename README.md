@@ -66,4 +66,27 @@ Mermaid Chart:
 - **Scheduler**: APScheduler
 - **Containerization**: Docker & Docker Compose
 
+## Example Queries
 
+```
+~/Desktop/Projects/crypto-tracker% docker exec -it crypto_timescaledb psql -U csabasallai -d crypto_db
+psql (16.10)
+Type "help" for help.
+
+crypto_db=# SELECT coin_id, name, symbol FROM coins ORDER BY name LIMIT 10;
+               coin_id                |                  name                  | symbol  
+--------------------------------------+----------------------------------------+---------
+ aave                                 | Aave                                   | aave
+ aptos                                | Aptos                                  | apt
+ avalanche-2                          | Avalanche                              | avax
+ binancecoin                          | BNB                                    | bnb
+ binance-bridged-usdt-bnb-smart-chain | Binance Bridged USDT (BNB Smart Chain) | bsc-usd
+ bitcoin                              | Bitcoin                                | btc
+ bitcoin-cash                         | Bitcoin Cash                           | bch
+ bitget-token                         | Bitget Token                           | bgb
+ cardano                              | Cardano                                | ada
+ chainlink                            | Chainlink                              | link
+(10 rows)
+
+crypto_db=# 
+```
