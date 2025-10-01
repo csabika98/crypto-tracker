@@ -12,7 +12,7 @@ class Config:
     COINGECKO_API_URL = os.getenv("COINGECKO_API_URL")
     
     # Collection
-    COLLECTION_INTERVAL = int(os.getenv("COLLECTION_INTERVAL", 50))
+    COLLECTION_INTERVAL = int(os.getenv("COLLECTION_INTERVAL"))
     
     # Logging
     LOG_LEVEL = os.getenv("LOG_LEVEL")

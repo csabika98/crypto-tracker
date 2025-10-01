@@ -12,27 +12,42 @@ export default function Home() {
   const [trending, setTrending] = useState<TrendingCoin[]>([]);
   const [period, setPeriod] = useState<number>(24);
   const [loading, setLoading] = useState<boolean>(true);
+  const [initializing, setInitializing] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     loadCoins();
-    loadTrending();
-  }, []);
+    const interval = setInterval(() => {
+      if (coins.length === 0) {
+        loadCoins(); 
+      }
+    }, 5000);
+    
+    return () => clearInterval(interval);
+  }, [coins.length]);
 
   useEffect(() => {
-    if (selectedCoin) {
+    if (coins.length > 0) {
+      loadTrending();
+    }
+  }, [coins]);
+
+  useEffect(() => {
+    if (selectedCoin && coins.length > 0) {
       loadCurrentPrice(selectedCoin);
       loadPriceHistory(selectedCoin, period);
     }
-  }, [selectedCoin, period]);
+  }, [selectedCoin, period, coins.length]);
 
   const loadCoins = async () => {
     try {
       const data = await api.getCoins();
       setCoins(data.coins);
+      if (data.coins.length > 0) {
+        setInitializing(false);
+      }
     } catch (err) {
-      setError('Failed to load coins');
-      console.error(err);
+      console.error('Failed to load coins:', err);
     }
   };
 
@@ -82,6 +97,20 @@ export default function Home() {
     return `${sign}${percent.toFixed(2)}%`;
   };
 
+
+  if (initializing && coins.length === 0) {
+    return (
+      <main className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mb-4"></div>
+          <h2 className="text-2xl font-semibold mb-2">Initializing Data Collection</h2>
+          <p className="text-gray-600">Fetching cryptocurrency data from CoinGecko...</p>
+          <p className="text-sm text-gray-500 mt-2">This may take 10-15 seconds on first startup</p>
+        </div>
+      </main>
+    );
+  }
+
   return (
     <main className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -124,23 +153,27 @@ export default function Home() {
             {/* Top Movers */}
             <div className="bg-white rounded-lg shadow p-6">
               <h2 className="text-xl font-semibold mb-4">Top Movers (24h)</h2>
-              <div className="space-y-3">
-                {trending.slice(0, 5).map((coin) => (
-                  <div key={coin.coin_id} className="p-3 bg-gray-50 rounded-lg">
-                    <div className="flex justify-between items-start mb-1">
-                      <span className="font-semibold">{coin.symbol.toUpperCase()}</span>
-                      <span className={`text-sm font-semibold px-2 py-1 rounded ${
-                        coin.direction === 'up' 
-                          ? 'bg-green-100 text-green-700' 
-                          : 'bg-red-100 text-red-700'
-                      }`}>
-                        {formatPercentage(coin.change_percent)}
-                      </span>
+              {trending.length === 0 ? (
+                <p className="text-sm text-gray-500">Calculating trends...</p>
+              ) : (
+                <div className="space-y-3">
+                  {trending.slice(0, 5).map((coin) => (
+                    <div key={coin.coin_id} className="p-3 bg-gray-50 rounded-lg">
+                      <div className="flex justify-between items-start mb-1">
+                        <span className="font-semibold">{coin.symbol.toUpperCase()}</span>
+                        <span className={`text-sm font-semibold px-2 py-1 rounded ${
+                          coin.direction === 'up' 
+                            ? 'bg-green-100 text-green-700' 
+                            : 'bg-red-100 text-red-700'
+                        }`}>
+                          {formatPercentage(coin.change_percent)}
+                        </span>
+                      </div>
+                      <span className="text-sm text-gray-600">{formatPrice(coin.current_price)}</span>
                     </div>
-                    <span className="text-sm text-gray-600">{formatPrice(coin.current_price)}</span>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </div>
           </aside>
 
@@ -217,8 +250,9 @@ export default function Home() {
                   periodHours={period}
                 />
               ) : (
-                <div className="flex justify-center items-center h-96">
-                  <p className="text-gray-600">No price data available yet. Wait for the collector to gather data.</p>
+                <div className="flex flex-col justify-center items-center h-96">
+                  <p className="text-gray-600 mb-2">Collecting price data...</p>
+                  <p className="text-sm text-gray-500">Charts will appear as data accumulates</p>
                 </div>
               )}
             </div>

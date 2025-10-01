@@ -19,7 +19,7 @@ services:
     environment:
       DATABASE_URL: postgresql://csabasallai:passwordtest@timescaledb:5432/crypto_db
       COINGECKO_API_URL: https://api.coingecko.com/api/v3
-      COLLECTION_INTERVAL: 3600
+      COLLECTION_INTERVAL: 50
     ports:
       - "8000:8000"
     depends_on:
