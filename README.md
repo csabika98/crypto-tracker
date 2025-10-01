@@ -27,6 +27,10 @@ Think of it as your personal crypto market observatory.
 
 ## Architecture Overview
 
+Mermaid Chart:
+<img width="3343" height="3840" alt="Untitled diagram _ Mermaid Chart-2025-10-01-192558" src="https://github.com/user-attachments/assets/883dc174-ecbf-4f8d-8e2f-96e1e65b4697" />
+
+
 ```
 ┌─────────────────┐      ┌─────────────────┐      ┌─────────────────┐
 │  Data Collector │ ───> │  PostgreSQL +   │ <─── │  Analytics      │
