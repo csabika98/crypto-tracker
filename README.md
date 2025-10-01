@@ -1,3 +1,12 @@
+- [Cryptocurrency Analytics Platform](#cryptocurrency-analytics-platform)
+  * [Use-Case](#use-case)
+  * [Core Functionality](#core-functionality)
+  * [Why This Project?](#why-this-project)
+  * [Architecture Overview](#architecture-overview)
+  * [Services](#services)
+  * [Tech Stack](#tech-stack)
+  * [Example Queries](#example-queries)
+
 # Cryptocurrency Analytics Platform
 
 ## Use-Case:
