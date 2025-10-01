@@ -33,12 +33,12 @@ Think of it as your personal crypto market observatory.
 │  Service        │      │  TimescaleDB    │      │  Service        │
 └─────────────────┘      └─────────────────┘      └─────────────────┘
                                                             │
-                                                        ▼
+                                                            ▼
                                                    ┌─────────────────┐
                                                    │  API Service    │
                                                    └─────────────────┘
                                                             │
-                                                        ▼
+                                                           ▼
                                                    ┌─────────────────┐
                                                    │  Frontend       │
                                                    │  Dashboard      │
