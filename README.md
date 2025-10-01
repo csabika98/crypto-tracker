@@ -23,7 +23,7 @@ Think of it as your personal crypto market observatory.
 * Smart Analytics
 * Dashboard
 
-## Why This Project?
+## Why This Project, Purpose of this Project
 
 - **CoinGecko API** - Free, no API key required, reliable data source about Cryptocurrency
 - **Time-series optimized** - PostgreSQL + TimescaleDB ideal for price data (initially i had an idea of using NoSQL -> MongoDB)
@@ -31,7 +31,7 @@ Think of it as your personal crypto market observatory.
 - **Engaging visualizations** - Price charts, comparisons, and insights
 
 
-**Key Differences from MongoDB version:**
+**Key Differences why i went with PostgreSQL + TimescaleDB instead of MongoDB:**
 - SQL-based schema with proper relationships
 - TimescaleDB hypertables for automatic time-series optimization
 - Example SQL queries showing analytics capabilities
