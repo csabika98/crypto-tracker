@@ -10,6 +10,12 @@ services:
       - "5432:5432"
     volumes:
       - timescale_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U csabasallai -d crypto_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
   backend:
     build:
@@ -23,9 +29,9 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - timescaledb
+      timescaledb:
+        condition: service_healthy
    
-
   frontend:
     build: ./frontend
     container_name: crypto_frontend
